@@ -4,9 +4,9 @@ import apap.tutorial.celsiusConverter.model.CelsiusConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.regex.Pattern;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class CelsiusConverterController {
@@ -22,13 +22,8 @@ public class CelsiusConverterController {
         return "celsiusConverterPage.html";
     }
 
-    @GetMapping(value = "/celsius-converter")
-    public String celsiusConverterRequestParam(@RequestParam(value = "celsius") String celsius, Model model){
+    @GetMapping(value = "/celsius-converter/{celsius}")
+    public String celsiusConverterWithPathVariable(@PathVariable(value = "celsius") String celsius, Model model){
         return getCelsiusConverterPage(celsius, model);
     }
-
-//    @GetMapping(value = "/celsius-converter/{celsius}")
-//    public String celsiusConverterWithPathVariable(@PathVariable(value = "celsius") String celsius, Model model){
-//        return getCelsiusConverterPage(celsius, model);
-//    }
 }
