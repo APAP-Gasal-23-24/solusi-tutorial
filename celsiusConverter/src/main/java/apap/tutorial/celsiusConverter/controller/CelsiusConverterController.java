@@ -22,6 +22,11 @@ public class CelsiusConverterController {
         return "celsiusConverterPage.html";
     }
 
+    @GetMapping(value = "/celsius-converter")
+    public String celsiusConverterRequestParam(@RequestParam(value = "celsius") String celsius, Model model) {
+        return getCelsiusConverterPage(celsius, model);
+    }
+
     @GetMapping(value = "/celsius-converter/{celsius}")
     public String celsiusConverterWithPathVariable(@PathVariable(value = "celsius") String celsius, Model model){
         return getCelsiusConverterPage(celsius, model);
