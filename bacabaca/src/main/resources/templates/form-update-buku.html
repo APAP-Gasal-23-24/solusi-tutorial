@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <title>Form Update Buku</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card m-4 p-4">
+      <div class="card-body">
+        <div class="justify-content-center">
+          <h2>Ubah Buku </h2>
+          <br>
+          <form th:action="@{/buku/update}" th:object="${bukuDTO}" method="POST">
+
+            <input class="form-control" type="hidden" th:field="*{id}" />
+
+            Judul Buku: <br>
+            <input class="form-control" type="text" th:field="*{judul}" />
+            <br><br>
+
+            Penulis: <br>
+            <input class="form-control" type="text" th:field="*{penulis}" />
+            <br><br>
+
+            Tahun Terbit: <br>
+            <input class="form-control" type="text" th:field="*{tahunTerbit}" />
+            <br><br>
+
+            Harga: <br>
+            <input required class="form-control" type="number" th:field="*{harga}" />
+            <br><br>
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <a class="btn btn-primary" href="/">Home</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
