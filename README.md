@@ -1,5 +1,5 @@
-# Solusi Tutorial APAP Gasal 23/24
+# Tutorial APAP
 
-Solusi untuk setiap tutorial pada **branch**-nya masing-masing.
+## Authors
 
-Jadikan solusi ini referensi untuk mengerjakan tutorial selanjutnya.
+**Tim Asdos APAP Gasal 23/24**
