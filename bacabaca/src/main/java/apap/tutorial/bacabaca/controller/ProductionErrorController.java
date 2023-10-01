@@ -19,7 +19,10 @@ public class ProductionErrorController implements ErrorController  {
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
         
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+            if(statusCode == HttpStatus.BAD_REQUEST.value()) {
+                return "400";
+            }
+            else if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "404";
             }
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
