@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>Add Buku</title>
+</head>
+
+<body>
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="text-center">
+        <h2 th:text="'Penulis ' + ${penulis.namaPenulis} + ' berhasil ditambahkan.'"></h2>
+      </div>
+      <div class="text-center m-3">
+        <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+        <a type="button" class="btn btn-md btn-primary" href="/penulis/viewall">Lihat Semua Penulis</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+    <title>Form Add Penulis</title>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('penulis')}"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Tambah Penulis </h2>
+                <br>
+                <form th:action="@{/penulis/create}" th:object="${penulisDTO}" method="POST">
+                    Nama Penulis: <br>
+                    <input class="form-control" type="text" th:field="*{namaPenulis}" />
+                    <br><br>
+
+                    Biografi: <br>
+                    <textarea class="form-control" th:field="*{biografi}" />
+                    <br><br>
+                    <table class="table">
+                        <th class="d-flex align-items-center justify-content-between">
+                            <p class="m-0 fw-normal">Sertifikasi:</p>
+                            <button class="btn btn-primary" type="submit" name="addRow" style="text-align:right">Tambah Row</button>
+                        </th>
+                        <tbody>
+                            <tr th:each="sertifikasi, iterationStatus : *{listSertifikasi}">
+                                <td class="d-flex gap-2 align-items-center w-100">
+                                    <div class="w-100">
+                                        <input placeholder="Nama Sertifikasi" class="form-control" id="namaSertifikasi" type="text" th:field="*{listSertifikasi[__${iterationStatus.index}__].namaSertifikasi}" />
+                                    </div>
+                                    <div class="w-100">
+                                        <input placeholder="Penerbit Sertifikasi" class="form-control"  id="penerbitSertifikasi" type="text" th:field="*{listSertifikasi[__${iterationStatus.index}__].penerbitSertifikasi}" />
+                                    </div>
+                                    <button th:value="${iterationStatus.index}" class="btn btn-danger" style="height: max-content;" type="submit" name="deleteRow">
+                                        Hapus
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <a class="btn btn-primary" href="/">Home</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

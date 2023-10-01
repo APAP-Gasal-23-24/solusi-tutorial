@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>Form Add Buku</title>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('buku')}"></nav>
+  <div class="container">
+    <div class="card m-4 p-4">
+      <div class="card-body">
+        <div class="justify-content-center">
+          <h2>Tambah Buku </h2>
+          <br>
+          <form th:action="@{/buku/create}" th:object="${bukuDTO}" method="POST">
+            Judul Buku: <br>
+            <input class="form-control" type="text" th:field="*{judul}" />
+            <br><br>
+
+            Tahun Terbit: <br>
+            <input class="form-control" type="text" th:field="*{tahunTerbit}" />
+            <br><br>
+
+            Harga: <br>
+            <input required class="form-control" type="number" th:field="*{harga}" />
+            <br><br>
+
+            Penerbit: <br>
+            <table class="table">
+              <tbody>
+              <tr>
+                <select class="form-control" name="idPenerbit" id="idPenerbit" th:field="*{penerbit}">
+                  <option th:each="penerbit: ${listPenerbit}"
+                          th:value="${penerbit.idPenerbit}" th:text="${penerbit.namaPenerbit}"></option>
+                </select>
+              </tr>
+              </tbody>
+            </table>
+
+            Penulis: <br>
+            <table class="table">
+              <th class="d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit" name="addRow" style="text-align:right">Tambah Row</button>
+              </th>
+              <tbody>
+              <tr th:each="penulis, iterationStatus : *{listPenulis}">
+                <td class="d-flex gap-2">
+                  <select th:field="*{listPenulis[__${iterationStatus.index}__].idPenulis}" class="form-control gap-2">
+                    <div th:each="penulisExisting : ${listPenulisExisting}">
+                      <option th:value="${penulisExisting.idPenulis}" th:text="${penulisExisting.namaPenulis}"></option>
+                    </div>
+                  </select>
+                  <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit" name="deleteRow">
+                    Hapus
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <a class="btn btn-primary" href="/">Home</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

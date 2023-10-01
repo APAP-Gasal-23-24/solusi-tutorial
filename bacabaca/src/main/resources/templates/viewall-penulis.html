@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>View All Penulis</title>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('penulis')}"></nav>
+<div class="container">
+  <div class="text-center pt-5">
+    <h2>Daftar Penulis</h2>
+  </div>
+  <form th:action="@{/penulis/delete}" th:object="${deleteDTO}" method="POST">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Penulis</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="penulis, iterationStatus : ${listPenulis}"
+      th:style="${iterationStatus.even} ? 'font-weight:bold;'"
+      >
+        <td th:text="${iterationStatus.count}"></td>
+        <td th:text="${penulis.namaPenulis}"></td>
+        <td>
+          <input type="checkbox" th:disabled="${penulis.listBuku.size} != 0" class="form-check-input"
+          id="flexCheckDefault"
+          th:field="*{listPenulis}"
+          th:value="${penulis.idPenulis}">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="alert alert-warning" role="alert">
+      Catatan: Penulis yang tidak dapat terpilih sudah memiliki relasi dengan suatu buku
+    </div>
+    <input type="submit" value="Delete Penulis yang dipilih" class="btn btn-danger">
+  </form>
+  <div class="text-center m-3">
+    <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+  </div>
+</div>
+</body>
+
+</html>

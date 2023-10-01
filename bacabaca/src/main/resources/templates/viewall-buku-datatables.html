@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>View All Buku</title>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('buku')}"></nav>
+  <div class="container">
+    <div class="text-center pt-5">
+      <h2>Daftar Buku</h2>
+    </div>
+    <div class="text-center m-3">
+      <a type="button" class="btn btn-primary m-2" href="/buku/create">Tambah Buku</a>
+      <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+    </div>
+    <table class="table" id="tableBuku">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Judul</th>
+          <th>Nama Penulis</th>
+          <th>Nama Penerbit</th>
+          <th>Harga</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr th:each="buku, iterationStatus: ${listBuku}" th:style="${iterationStatus.even} ? 'font-weight:bold;'">
+        <td th:text="${iterationStatus.count}"></td>
+        <td>
+          <h5 th:text="${buku.judul}" class="card-title"></h5>
+        </td>
+        <td>
+          <div th:each="penulis, iterationStatus2: ${buku.listPenulis}">
+            <h6 th:if="${iterationStatus2.last}" class="pe-2" th:text="${penulis.namaPenulis}"></h6>
+            <h6 th:unless="${iterationStatus2.last}" class="pe-2" th:text="${penulis.namaPenulis} + ', '"></h6>
+          </div>
+          <h6 th:unless="${buku.listPenulis.size} != 0" class="card-subtitle mb-2">Penulis belum ter-record</h6>
+        </td>
+        <td>
+          <h6 th:text="${buku.Penerbit.namaPenerbit}"></h6>
+        </td>
+        <td>
+          <p th:text="${buku.harga}" class="card-text text-muted"></p>
+        </td>
+        <td>
+          <a type="button" class="btn btn-md btn-primary" th:href="@{/buku/{id}(id=${buku.id})}">Detail</a>
+          <a type="button" class="btn btn-md btn-warning" th:href="@{/buku/{id}/update(id=${buku.id})}">Ubah</a>
+          <a type="button" class="btn btn-md btn-danger" th:href="@{/buku/{id}/delete(id=${buku.id})}">Hapus</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $('#tableBuku').DataTable({
+        "lengthMenu": [ 5, 10, 20 ],
+        "columnDefs": [
+        { targets: [5], sortable: false },
+      ]
+    });
+    });
+  </script>
+</body>
+
+</html>

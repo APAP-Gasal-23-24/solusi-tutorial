@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>View All Buku</title>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('buku')}"></nav>
+  <div class="container">
+    <div class="text-center pt-5">
+      <h2>Daftar Buku</h2>
+    </div>
+    <div class="row justify-content-center m-2">
+      <div class="text-center mx-auto">
+      <form th:action="@{/search}" method="GET">
+        <input type="text" name="query" placeholder="Enter your search query" th:value="${query}" />
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+      </div>
+    </div>
+    <div th:each="buku: ${listBuku}">
+      <div class="row justify-content-center m-2">
+        <div class="card" style="width: 30rem;">
+          <div class="card-body">
+            <h5 th:text="${buku.judul}" class="card-title"></h5>
+            <br>
+            <div class="d-flex" >
+            <div th:each="penulis, iterationStatus: ${buku.listPenulis}">
+              <h6 th:if="${iterationStatus.last}" class="pe-2" th:text="${penulis.namaPenulis}"></h6>
+              <h6 th:unless="${iterationStatus.last}" class="pe-2" th:text="${penulis.namaPenulis} + ', '"></h6>
+            </div>
+            </div>
+            <h6 th:unless="${buku.listPenulis.size} != 0" class="card-subtitle mb-2">Penulis belum ter-record</h6>
+            <h6 th:text="'Penerbit : '+${buku.Penerbit.namaPenerbit}"></h6>
+            <p th:text="'Harga : Rp'+${buku.harga}" class="card-text text-muted"></p>
+            <a type="button" class="btn btn-md btn-primary" th:href="@{/buku/{id}(id=${buku.id})}">Detail</a>
+            <a type="button" class="btn btn-md btn-warning" th:href="@{/buku/{id}/update(id=${buku.id})}">Ubah</a>
+            <a type="button" class="btn btn-md btn-danger" th:href="@{/buku/{id}/delete(id=${buku.id})}">Hapus</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center m-3">
+      <a type="button" class="btn btn-primary m-2" href="/buku/create">Tambah Buku</a>
+      <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+    </div>
+  </div>
+</body>
+
+</html>
