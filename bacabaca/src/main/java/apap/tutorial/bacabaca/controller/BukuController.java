@@ -3,6 +3,7 @@ package apap.tutorial.bacabaca.controller;
 import apap.tutorial.bacabaca.dto.BukuMapper;
 import apap.tutorial.bacabaca.dto.request.CreateBukuRequestDTO;
 import apap.tutorial.bacabaca.dto.request.UpdateBukuRequestDTO;
+import apap.tutorial.bacabaca.dto.response.PopularBookResponseDTO;
 import apap.tutorial.bacabaca.model.Buku;
 import apap.tutorial.bacabaca.model.Penulis;
 import apap.tutorial.bacabaca.service.BukuService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,6 +31,7 @@ public class BukuController {
 
     @Autowired
     private BukuService bukuService;
+
     @Autowired
     private PenerbitService penerbitService;
 
@@ -264,5 +267,13 @@ public class BukuController {
         List<Buku> listBukuFiltered = bukuService.listBukuFiltered(judul);
         model.addAttribute("listBuku", listBukuFiltered);
         return "viewall-buku";
+    }
+
+    @GetMapping("buku/chart")
+    public String chartBukuPopuler(Model model) {
+        Map<String, Long> listBuku = bukuService.getPopularBooks();
+        model.addAttribute("listBuku", listBuku);
+
+        return "view-buku-chart";
     }
 }

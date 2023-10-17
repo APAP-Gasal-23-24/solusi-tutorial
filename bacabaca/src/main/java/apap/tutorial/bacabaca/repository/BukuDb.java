@@ -15,4 +15,8 @@ public interface BukuDb extends JpaRepository<Buku, UUID> {
     List<Buku> findByJudulContainingIgnoreCase(String judul);
     @Query("SELECT b FROM Buku b ORDER BY b.judulLower")
     List<Buku> sortBukuByJudulLower();
+
+    List<Buku> findByJudulStartsWith(String prefix);
+
+
 }

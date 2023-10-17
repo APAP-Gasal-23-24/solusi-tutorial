@@ -1,8 +1,10 @@
 package apap.tutorial.bacabaca.service;
 
+import apap.tutorial.bacabaca.dto.response.PopularBookResponseDTO;
 import apap.tutorial.bacabaca.model.Buku;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface BukuService {
@@ -24,4 +26,8 @@ public interface BukuService {
     void deleteBuku(Buku buku);
 
     List<Buku> listBukuFiltered(String judul);
+
+    Map<String, Long> getPopularBooks();
+
+
 }
