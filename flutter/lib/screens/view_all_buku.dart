@@ -21,7 +21,7 @@ class _BukuScreenState extends State<BukuScreen> {
     try {
       print(await storage.read(key: 'token'));
       var response = await http
-          .get(Uri.parse("http://127.0.0.1:9090/api/buku/view-all"), headers: {
+          .get(Uri.parse("http://127.0.0.1:8080/api/buku/view-all"), headers: {
         "Accept": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Authorization": "Bearer ${await storage.read(key: 'token')}"

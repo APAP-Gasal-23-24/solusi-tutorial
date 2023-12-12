@@ -8,7 +8,7 @@ class RequestHandler {
   Future<http.Response> fetchToken(String username, String password) async {
       var data = {"username" : username, "password": password};
       var response = await http.post(
-        Uri.parse("http://127.0.0.1:9090/api/auth/login"),
+        Uri.parse("http://127.0.0.1:8080/api/auth/login"),
         body: json.encode(data),
         headers:{
           "Content-type": "application/json"
