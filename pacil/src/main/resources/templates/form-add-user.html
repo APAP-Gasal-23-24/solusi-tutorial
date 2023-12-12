@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+    <title>Form Add User</title>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('user')}"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Form Add User</h2>
+                <br>
+                <form th:action="@{/user/add}" th:object="${userDTO}" method="POST">
+                    Username: <br>
+                    <input class="form-control" type="text" th:field="*{username}" />
+                    <br><br>
+
+                    Nama: <br>
+                    <input class="form-control" type="text" th:field="*{name}" />
+                    <br><br>
+
+                    Password <br>
+                    <input required class="form-control" type="text" th:field="*{password}" />
+                    <br><br>
+
+                    <select th:field="*{role}" name="role" class="form-control">
+                        <option selected value="">--Pilih Role--</option>
+                        <option th:each="role: ${listRole}" th:value="${role}" th:text="${role}">
+                        </option>
+                    </select>
+
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

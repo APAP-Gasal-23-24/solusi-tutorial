@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>View Buku</title>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('buku')}"></nav>
+  <div class="container">
+    <div class="text-center pt-5">
+      <h2>Informasi Buku</h2>
+    </div>
+    <div class="row justify-content-center">
+      <div class="card" style="width: 30rem;">
+        <div class="card-body">
+          <div class="row text-center mb-2">
+            <h4 class="card-title" th:text="${buku.judul}"></h4>
+          </div>
+          <div>
+            <p class="card-text m-0"><b>ID Buku</b></p>
+            <p class="card-text" th:text="${buku.id}"></p>
+
+            <p class="card-text m-0"><b>Tahun Terbit</b></p>
+            <p class="card-text" th:text="${buku.tahunTerbit}"></p>
+
+            <p class="card-text m-0"><b>Harga Buku</b></p>
+            <p class="card-text" th:text="${buku.harga}"></p>
+
+            <p class="card-text m-0"><b>Penerbit</b></p>
+            <p class="card-text" th:text="${buku.namaPenerbit}" ></p>
+
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Nama</th>
+
+                <!-- Add more table headers as needed -->
+              </tr>
+              </thead>
+              <tbody>
+              <!-- Iterate through the list of Buku objects -->
+              <tr th:each="penulis : ${buku.listPenulis}">
+                <td th:text="${penulis.namaPenulis}"></td>
+                <!-- Add more table columns as needed -->
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center m-3">
+      <a type="button" class="btn btn-primary btn-md" href="/buku/viewall">Kembali</a>
+    </div>
+  </div>
+</body>
+
+</html>

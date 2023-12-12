@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+            integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('penerbit')}"></nav>
+    <div class="container">
+        <div class="text-center pt-5">
+            <h2>Chart Jumlah Buku Penerbit</h2>
+            <div class="row justify-content-center m-2">
+                <canvas id="chartPenerbit"></canvas>
+            </div>
+        </div>
+        <div class="text-center m-3">
+            <a type="button" class="btn btn-md btn-primary" href="/">Home</a>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        var listPenerbit = [[${listPenerbit}]];
+
+        var labels = Object.keys(listPenerbit);
+        var chartData = labels.map(function(key) {
+            return listPenerbit[key];
+        });
+
+        var colors = [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ];
+        var borderColors = [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ];
+        const ctx = document.getElementById('chartPenerbit');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah Buku',
+                    data: chartData,
+                    backgroundColor: colors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+      </script>
+</body>
+</html>
